@@ -1,5 +1,22 @@
+@property --floor {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: true;
+}
+
+@property --player-mod {
+  syntax: '<integer>';
+  initial-value: 10;
+  inherits: true;
+}
+
 :root {
   --cell-size: 100px;
+  --turn: 0;
+  --floor: calc((var(--turn))/ 2 - .5);
+  --player-mod: calc(mod(var(--turn), 2) + 1);
+  --player-prop: calc((var(--turn)) - 2 * var(--floor) + 1);
+  --player: min(var(--player-mod), var(--player-prop));
 }
 
 * {
@@ -61,4 +78,11 @@ input[type="reset"] {
   cursor: pointer;
   margin-top: 40px;
   margin-bottom: 10px;
+}
+
+#current-player {
+  counter-reset: player var(--player);
+  & span::after {
+    content: counter(player);
+  }
 }
