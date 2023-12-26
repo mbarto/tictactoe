@@ -10,6 +10,12 @@
   inherits: true;
 }
 
+@property --player {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: true;
+}
+
 :root {
   --cell-size: 100px;
   --turn: 0;
@@ -84,5 +90,15 @@ input[type="reset"] {
   counter-reset: player var(--player);
   & span::after {
     content: counter(player);
+  }
+  @container style(--player: 1) {
+    & span::after {
+      content: "X";
+    }
+  }
+  @container style(--player: 2) {
+    & span::after {
+      content: "O";
+    }
   }
 }
